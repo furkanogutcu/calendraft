@@ -1,0 +1,22 @@
+{
+    "name": "calendraft",
+    "version": "0.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/furkanogutcu/calendraft.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/furkanogutcu/calendraft/issues"
+    },
+    "homepage": "https://github.com/furkanogutcu/calendraft#readme",
+    "workspaces": [
+        "client/*",
+        "server/*"
+    ]
+}
