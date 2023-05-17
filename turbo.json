@@ -1,0 +1,11 @@
+{
+  "pipeline": {
+    "build:check": {},
+    "lint": {},
+    "lint:fix": {},
+    "test": {},
+    "db:generate": {
+      "cache": false
+    }
+  }
+}

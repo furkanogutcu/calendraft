@@ -1,22 +1,44 @@
 {
-    "name": "calendraft",
-    "version": "0.0.0",
-    "description": "",
-    "main": "app.js",
-    "scripts": {},
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/furkanogutcu/calendraft.git"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/furkanogutcu/calendraft/issues"
-    },
-    "homepage": "https://github.com/furkanogutcu/calendraft#readme",
-    "workspaces": [
-        "client/*",
-        "server/*"
-    ]
+  "name": "calendraft",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "build:check": "turbo run build:check",
+    "commitlint": "commitlint --edit ${1}",
+    "prepare": "husky install",
+    "pre-commit": "echo todo:npm run lint",
+    "pre-push": "echo todo:npm run build:check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/furkanogutcu/calendraft.git"
+  },
+  "keywords": [],
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/furkanogutcu/calendraft/issues"
+  },
+  "homepage": "https://github.com/furkanogutcu/calendraft#readme",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
+    "@typescript-eslint/eslint-plugin": "^5.59.6",
+    "@typescript-eslint/parser": "^5.59.6",
+    "eslint": "^8.40.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
+    "prettier": "^2.8.8",
+    "tsconfig-paths": "^4.2.0",
+    "turbo": "^1.9.6",
+    "typescript": "^5.0.4"
+  }
 }

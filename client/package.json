@@ -1,0 +1,19 @@
+{
+  "name": "client",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/furkanogutcu/calendraft.git"
+  },
+  "keywords": [],
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/furkanogutcu/calendraft/issues"
+  },
+  "homepage": "https://github.com/furkanogutcu/calendraft#readme",
+  "devDependencies": {}
+}
