@@ -71,7 +71,7 @@ export class AuthService {
   }
 
   async getProfile({ id, email }: AccessTokenPayload): Promise<Admin> {
-    const admin = await this.prisma.admin.findUnique({
+    const admin = await this.prisma.admin.findFirst({
       where: { id, email },
     });
 

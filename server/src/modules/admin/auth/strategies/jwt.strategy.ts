@@ -15,7 +15,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: AccessTokenPayload) {
+  async validate(req: Request, payload: AccessTokenPayload) {
     try {
       return await this.authService.getProfile(payload);
     } catch (error) {
