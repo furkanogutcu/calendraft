@@ -5,9 +5,18 @@ import { AdminModule } from './modules/admin/admin.module';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { HttpExceptionFilter } from './common/responses/http-exception.filter';
 import { HttpSuccessInterceptor } from './common/responses/http-success.interceptor';
+import { ConfigModule } from '@nestjs/config';
+import config from './config/config';
 
 @Module({
-  imports: [AdminModule],
+  imports: [
+    ConfigModule.forRoot({
+      load: [config],
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
+    AdminModule,
+  ],
   controllers: [AppController],
   providers: [
     {
