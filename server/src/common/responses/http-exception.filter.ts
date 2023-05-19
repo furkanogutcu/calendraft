@@ -10,6 +10,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
     let statusCode: number;
     let errorResponse: ErrorResponse;
 
+    const exceptionMessage = exception.response?.message || exception.message;
+
+    const message = Array.isArray(exceptionMessage) ? exceptionMessage : [exceptionMessage];
+
     if (exception instanceof HttpException) {
       statusCode = exception.getStatus();
 
@@ -17,7 +21,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         success: false,
         statusCode,
         error: exception.name,
-        message: exception.message,
+        message,
       };
     } else {
       statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -26,7 +30,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
         success: false,
         statusCode,
         error: 'InternalServerErrorException',
-        message: exception.message,
       };
     }
 
