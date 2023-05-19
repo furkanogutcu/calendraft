@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AdminModule } from './modules/admin/admin.module';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { HttpExceptionFilter } from './common/responses/http-exception.filter';
 import { HttpSuccessInterceptor } from './common/responses/http-success.interceptor';
 
 @Module({
+  imports: [AdminModule],
   controllers: [AppController],
   providers: [
     {
