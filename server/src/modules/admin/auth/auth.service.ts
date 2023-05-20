@@ -70,9 +70,10 @@ export class AuthService {
     };
   }
 
-  async getProfile({ id, email }: AccessTokenPayload): Promise<Admin> {
+  async getProfile({ id, email }: AccessTokenPayload): Promise<Omit<Admin, 'password'>> {
     const admin = await this.prisma.admin.findFirst({
       where: { id, email },
+      select: { id: true, email: true, createdAt: true },
     });
 
     if (!admin) throw new NotFoundException('Admin not found!');
