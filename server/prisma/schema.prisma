@@ -41,6 +41,7 @@ model Appointment {
   startTime DateTime
   endTime   DateTime
   createdAt DateTime @default(now())
+  price     Float?
 
   userId    Int
   serviceId Int

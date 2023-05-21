@@ -6,7 +6,7 @@ import { AppointmentCreatePayload } from '../../validations/appointments.validat
 export class AppointmentsService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(data: AppointmentCreatePayload) {
-    return await this.prismaService.appointment.create({ data });
+  async create(data: AppointmentCreatePayload, currentPrice: number | null) {
+    return await this.prismaService.appointment.create({ data: { ...data, price: currentPrice } });
   }
 }

@@ -17,8 +17,8 @@ export class AppointmentsController {
   @Post()
   async create(@Body() payload: AppointmentCreatePayload) {
     await this.usersService.findById(payload.userId);
-    await this.servicesService.findById(payload.serviceId);
+    const service = await this.servicesService.findById(payload.serviceId);
 
-    return await this.appointmentsService.create(payload);
+    return await this.appointmentsService.create(payload, service.price);
   }
 }
