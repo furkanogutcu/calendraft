@@ -16,4 +16,13 @@ export class ServicesService {
 
     return service;
   }
+
+  async listReservedDateByServiceId(serviceId: number) {
+    await this.findById(serviceId);
+
+    return await this.prismaService.appointment.findMany({
+      where: { serviceId },
+      select: { startTime: true, endTime: true },
+    });
+  }
 }

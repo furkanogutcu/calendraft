@@ -16,4 +16,9 @@ export class ServicesController {
   async findById(@Param('serviceId', ParseIntPipe) serviceId: number) {
     return await this.servicesService.findById(serviceId);
   }
+
+  @Get(':serviceId/reserved-dates')
+  async listReservedDateByServiceId(@Param('serviceId', ParseIntPipe) serviceId: number) {
+    return await this.servicesService.listReservedDateByServiceId(serviceId);
+  }
 }
