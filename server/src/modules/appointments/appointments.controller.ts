@@ -4,7 +4,9 @@ import { UsersService } from '../admin/users/users.service';
 import { ServicesService } from '../services/services.service';
 import { ZodValidationPipe } from '@anatine/zod-nestjs';
 import { AppointmentCreatePayload } from '../../validations/appointments.validation';
+import { Public } from '../../common/decorators/public.decorator';
 
+@Public()
 @Controller('appointments')
 export class AppointmentsController {
   constructor(
