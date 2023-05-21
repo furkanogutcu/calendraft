@@ -8,6 +8,9 @@ import { HttpSuccessInterceptor } from './common/responses/http-success.intercep
 import { ConfigModule } from '@nestjs/config';
 import config from './config/config';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
+import { UsersModule } from './modules/users/users.module';
+import { ServicesModule } from './modules/services/services.module';
+import { AppointmentsModule } from './modules/appointments/appointments.module';
 
 @Module({
   imports: [
@@ -17,6 +20,9 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
       envFilePath: '.env',
     }),
     AdminModule,
+    UsersModule,
+    ServicesModule,
+    AppointmentsModule,
   ],
   controllers: [AppController],
   providers: [
