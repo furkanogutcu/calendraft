@@ -8,5 +8,6 @@ import { AppointmentsModule } from '../appointments/appointments.module';
   imports: [PrismaModule, AppointmentsModule],
   controllers: [UsersController],
   providers: [UsersService],
+  exports: [UsersService],
 })
 export class UsersModule {}
