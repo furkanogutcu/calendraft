@@ -10,10 +10,10 @@ export class UsersService {
     return await this.prismaService.user.findUnique({ where: { phoneNumber } });
   }
 
-  async create(data: UserCreatePayload) {
+  async getOrCreate(data: UserCreatePayload) {
     const user = await this.findByPhoneNumber(data.phoneNumber);
 
-    if (user) throw new ConflictException('Phone number already exists');
+    if (user) return user;
 
     return await this.prismaService.user.create({ data });
   }

@@ -10,6 +10,6 @@ export class UsersController {
   @UsePipes(ZodValidationPipe)
   @Post()
   async create(@Body() payload: UserCreatePayload) {
-    return await this.usersService.create(payload);
+    return await this.usersService.getOrCreate(payload);
   }
 }
