@@ -9,7 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('Calendraft')
+    .setTitle('Calendraft API')
     .setDescription(
       'Calendraft is a web application that allows users to easily schedule their appointments online. This application offers a modern interface and user-friendly functionality to assist users in scheduling their appointments.',
     )
