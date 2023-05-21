@@ -6,7 +6,7 @@ export class UsersService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async list() {
-    return this.prismaService.user.findMany();
+    return await this.prismaService.user.findMany();
   }
 
   async findById(userId: number) {
@@ -20,6 +20,6 @@ export class UsersService {
   async delete(userId: number) {
     await this.findById(userId);
 
-    return this.prismaService.user.delete({ where: { id: userId } });
+    return await this.prismaService.user.delete({ where: { id: userId } });
   }
 }

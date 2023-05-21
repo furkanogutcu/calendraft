@@ -13,17 +13,17 @@ export class AdminController {
   async createAdmin(@Body() payload: RegisterPayload) {
     await this.authService.register(payload);
 
-    return this.adminService.findByEmail(payload.email);
+    return await this.adminService.findByEmail(payload.email);
   }
 
   @Get()
   async list() {
-    return this.adminService.list();
+    return await this.adminService.list();
   }
 
   @Get(':adminId')
   async findById(@Param('adminId', ParseIntPipe) adminId: number) {
-    return this.adminService.findById(adminId);
+    return await this.adminService.findById(adminId);
   }
 
   @Delete(':adminId')

@@ -7,6 +7,6 @@ export class AppointmentsService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(data: AppointmentCreatePayload) {
-    return this.prismaService.appointment.create({ data });
+    return await this.prismaService.appointment.create({ data });
   }
 }

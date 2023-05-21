@@ -8,14 +8,14 @@ export class AdminService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async findByEmail(email: string) {
-    return this.prismaService.admin.findUnique({
+    return await this.prismaService.admin.findUnique({
       where: { email },
       select,
     });
   }
 
   async list() {
-    return this.prismaService.admin.findMany({
+    return await this.prismaService.admin.findMany({
       select,
     });
   }
@@ -35,6 +35,6 @@ export class AdminService {
 
     await this.findById(adminId);
 
-    return this.prismaService.admin.delete({ where: { id: adminId }, select });
+    return await this.prismaService.admin.delete({ where: { id: adminId }, select });
   }
 }

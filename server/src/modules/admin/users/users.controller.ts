@@ -25,6 +25,6 @@ export class UsersController {
   async listByUserId(@Param('userId', ParseIntPipe) userId: number) {
     await this.usersService.findById(userId);
 
-    return this.appointmentsService.listByUserId(userId);
+    return await this.appointmentsService.listByUserId(userId);
   }
 }
