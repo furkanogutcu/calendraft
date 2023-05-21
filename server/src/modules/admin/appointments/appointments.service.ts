@@ -15,22 +15,22 @@ export class AppointmentsService {
   }
 
   async listByUserId(userId: number) {
-    return this.prismaService.appointment.findMany({ where: { userId } });
+    return await this.prismaService.appointment.findMany({ where: { userId } });
   }
 
   async list() {
-    return this.prismaService.appointment.findMany();
+    return await this.prismaService.appointment.findMany();
   }
 
   async update(appointmentId: number, data: AppointmentUpdatePayload) {
     await this.findById(appointmentId);
 
-    return this.prismaService.appointment.update({ where: { id: appointmentId }, data });
+    return await this.prismaService.appointment.update({ where: { id: appointmentId }, data });
   }
 
   async delete(appointmentId: number) {
     await this.findById(appointmentId);
 
-    return this.prismaService.appointment.delete({ where: { id: appointmentId } });
+    return await this.prismaService.appointment.delete({ where: { id: appointmentId } });
   }
 }

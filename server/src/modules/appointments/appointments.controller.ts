@@ -4,7 +4,11 @@ import { UsersService } from '../admin/users/users.service';
 import { ServicesService } from '../services/services.service';
 import { ZodValidationPipe } from '@anatine/zod-nestjs';
 import { AppointmentCreatePayload } from '../../validations/appointments.validation';
+import { Public } from '../../common/decorators/public.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Public')
+@Public()
 @Controller('appointments')
 export class AppointmentsController {
   constructor(
@@ -17,8 +21,8 @@ export class AppointmentsController {
   @Post()
   async create(@Body() payload: AppointmentCreatePayload) {
     await this.usersService.findById(payload.userId);
-    await this.servicesService.findById(payload.serviceId);
+    const service = await this.servicesService.findById(payload.serviceId);
 
-    return await this.appointmentsService.create(payload);
+    return await this.appointmentsService.create(payload, service.price);
   }
 }

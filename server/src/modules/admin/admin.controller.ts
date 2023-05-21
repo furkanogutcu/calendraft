@@ -3,7 +3,10 @@ import { AdminService } from './admin.service';
 import { RegisterPayload } from '../../validations/admin/auth.validation';
 import { AuthService } from './auth/auth.service';
 import { ZodValidationPipe } from '@anatine/zod-nestjs';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Admin only')
+@ApiBearerAuth()
 @Controller('admin/admins')
 export class AdminController {
   constructor(private readonly adminService: AdminService, private readonly authService: AuthService) {}
@@ -13,17 +16,17 @@ export class AdminController {
   async createAdmin(@Body() payload: RegisterPayload) {
     await this.authService.register(payload);
 
-    return this.adminService.findByEmail(payload.email);
+    return await this.adminService.findByEmail(payload.email);
   }
 
   @Get()
   async list() {
-    return this.adminService.list();
+    return await this.adminService.list();
   }
 
   @Get(':adminId')
   async findById(@Param('adminId', ParseIntPipe) adminId: number) {
-    return this.adminService.findById(adminId);
+    return await this.adminService.findById(adminId);
   }
 
   @Delete(':adminId')

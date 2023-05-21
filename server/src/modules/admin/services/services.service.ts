@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../../common/prisma/prisma.service';
 import { ServiceCreatePayload, ServiceUpdatePayload } from '../../../validations/admin/services.validation';
 
@@ -7,6 +7,10 @@ export class ServicesService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(data: ServiceCreatePayload) {
+    const service = await this.prismaService.service.findUnique({ where: { name: data.name } });
+
+    if (service) throw new ConflictException('Service name already exists');
+
     return await this.prismaService.service.create({ data });
   }
 

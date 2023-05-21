@@ -2,7 +2,10 @@ import { Body, Controller, Delete, Param, ParseIntPipe, Patch, Post, UsePipes } 
 import { ServicesService } from './services.service';
 import { ServiceCreatePayload, ServiceUpdatePayload } from '../../../validations/admin/services.validation';
 import { ZodValidationPipe } from '@anatine/zod-nestjs';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Admin only')
+@ApiBearerAuth()
 @Controller('admin/services')
 export class ServicesController {
   constructor(private readonly servicesService: ServicesService) {}

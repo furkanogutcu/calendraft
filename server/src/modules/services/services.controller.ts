@@ -1,6 +1,10 @@
 import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { ServicesService } from './services.service';
+import { Public } from '../../common/decorators/public.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Public')
+@Public()
 @Controller('services')
 export class ServicesController {
   constructor(private readonly servicesService: ServicesService) {}
@@ -13,5 +17,10 @@ export class ServicesController {
   @Get(':serviceId')
   async findById(@Param('serviceId', ParseIntPipe) serviceId: number) {
     return await this.servicesService.findById(serviceId);
+  }
+
+  @Get(':serviceId/reserved-dates')
+  async listReservedDateByServiceId(@Param('serviceId', ParseIntPipe) serviceId: number) {
+    return await this.servicesService.listReservedDateByServiceId(serviceId);
   }
 }

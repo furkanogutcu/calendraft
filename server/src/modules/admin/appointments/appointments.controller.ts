@@ -2,29 +2,32 @@ import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, UsePipes } f
 import { AppointmentsService } from './appointments.service';
 import { ZodValidationPipe } from '@anatine/zod-nestjs';
 import { AppointmentUpdatePayload } from '../../../validations/admin/appointments.validation';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Admin only')
+@ApiBearerAuth()
 @Controller('admin/appointments')
 export class AppointmentsController {
   constructor(private readonly appointmentsService: AppointmentsService) {}
 
   @Get()
   async list() {
-    return this.appointmentsService.list();
+    return await this.appointmentsService.list();
   }
 
   @Get(':appointmentId')
   async findById(@Param('appointmentId', ParseIntPipe) appointmentId: number) {
-    return this.appointmentsService.findById(appointmentId);
+    return await this.appointmentsService.findById(appointmentId);
   }
 
   @UsePipes(ZodValidationPipe)
   @Patch(':appointmentId')
   async update(@Param('appointmentId', ParseIntPipe) appointmentId: number, @Body() payload: AppointmentUpdatePayload) {
-    return this.appointmentsService.update(appointmentId, payload);
+    return await this.appointmentsService.update(appointmentId, payload);
   }
 
   @Delete(':appointmentId')
   async delete(@Param('appointmentId', ParseIntPipe) appointmentId: number) {
-    return this.appointmentsService.delete(appointmentId);
+    return await this.appointmentsService.delete(appointmentId);
   }
 }
