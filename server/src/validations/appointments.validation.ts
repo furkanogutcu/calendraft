@@ -8,6 +8,11 @@ const createSchema = z
     startTime: z.string().datetime(),
     endTime: z.string().datetime(),
   })
-  .strict();
+  .strict()
+  .refine((data) => {
+    const startTime = new Date(data.startTime);
+    const endTime = new Date(data.endTime);
+    return endTime > startTime;
+  }, 'EndTime must be greater than startTime');
 
 export class AppointmentCreatePayload extends createZodDto(createSchema) {}

@@ -29,7 +29,7 @@ model Admin {
 
 model Service {
   id        Int      @id @default(autoincrement())
-  name      String
+  name      String   @unique
   price     Float?
   createdAt DateTime @default(now())
 
@@ -47,4 +47,6 @@ model Appointment {
   serviceId Int
   user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@unique([serviceId, startTime, endTime])
 }
