@@ -4,7 +4,7 @@ import { RegisterPayload } from '../../validations/admin/auth.validation';
 import { AuthService } from './auth/auth.service';
 import { ZodValidationPipe } from '@anatine/zod-nestjs';
 
-@Controller('admin')
+@Controller('admin/admins')
 export class AdminController {
   constructor(private readonly adminService: AdminService, private readonly authService: AuthService) {}
 
