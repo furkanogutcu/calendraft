@@ -5,7 +5,9 @@ import { ServicesService } from '../services/services.service';
 import { ZodValidationPipe } from '@anatine/zod-nestjs';
 import { AppointmentCreatePayload } from '../../validations/appointments.validation';
 import { Public } from '../../common/decorators/public.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Public')
 @Public()
 @Controller('appointments')
 export class AppointmentsController {

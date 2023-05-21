@@ -2,7 +2,10 @@ import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, UsePipes } f
 import { AppointmentsService } from './appointments.service';
 import { ZodValidationPipe } from '@anatine/zod-nestjs';
 import { AppointmentUpdatePayload } from '../../../validations/admin/appointments.validation';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Admin only')
+@ApiBearerAuth()
 @Controller('admin/appointments')
 export class AppointmentsController {
   constructor(private readonly appointmentsService: AppointmentsService) {}

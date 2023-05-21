@@ -1,7 +1,10 @@
 import { Controller, Delete, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { AppointmentsService } from '../appointments/appointments.service';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Admin only')
+@ApiBearerAuth()
 @Controller('admin/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService, private readonly appointmentsService: AppointmentsService) {}

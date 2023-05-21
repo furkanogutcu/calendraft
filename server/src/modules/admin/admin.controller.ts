@@ -3,7 +3,10 @@ import { AdminService } from './admin.service';
 import { RegisterPayload } from '../../validations/admin/auth.validation';
 import { AuthService } from './auth/auth.service';
 import { ZodValidationPipe } from '@anatine/zod-nestjs';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Admin only')
+@ApiBearerAuth()
 @Controller('admin/admins')
 export class AdminController {
   constructor(private readonly adminService: AdminService, private readonly authService: AuthService) {}

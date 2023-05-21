@@ -3,7 +3,9 @@ import { UsersService } from './users.service';
 import { ZodValidationPipe } from '@anatine/zod-nestjs';
 import { UserCreatePayload } from '../../validations/users.validation';
 import { Public } from '../../common/decorators/public.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Public')
 @Public()
 @Controller('users')
 export class UsersController {

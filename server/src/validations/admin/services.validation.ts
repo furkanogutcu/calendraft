@@ -12,7 +12,7 @@ export const createSchema = z
 export const updateSchema = createSchema
   .partial()
   .extend({
-    price: z.union([z.number().min(0).optional(), z.null()]),
+    price: z.number().min(0).optional().nullable(),
   })
   .refine((data) => Object.keys(data).length > 0, {
     message: 'At least one field is required!',
