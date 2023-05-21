@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import config from './config/config';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { UsersModule } from './modules/users/users.module';
+import { ServicesModule } from './modules/services/services.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { UsersModule } from './modules/users/users.module';
     }),
     AdminModule,
     UsersModule,
+    ServicesModule,
   ],
   controllers: [AppController],
   providers: [
