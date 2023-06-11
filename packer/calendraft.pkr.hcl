@@ -81,4 +81,11 @@ build {
       "npm run db:migrate -y"
     ]
   }
+
+  provisioner "shell" {
+    inline = [
+      "cd calendraft/client/src/environments",
+      "echo \"export const environment = { production: false, apiUrl: 'http://$(sudo ifconfig | grep -oP '(?<=inet\\s)\\d+(\\.\\d+){3}' | awk 'NR==3'):3000' };\" > environment.ts"
+    ]
+  }
 }
