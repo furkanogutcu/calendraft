@@ -1,11 +1,19 @@
 variable "ssh_username" {
   type    = string
   default = "packer"
+  sensitive = true
 }
 
 variable "ssh_password" {
   type    = string
   default = "packer"
+  sensitive = true
+}
+
+variable "server_jwt_secret" {
+  type    = string
+  default = "very-secret-key"
+  sensitive = true
 }
 
 source "vmware-iso" "debian" {
@@ -69,7 +77,7 @@ build {
       "cd calendraft/server",
       "touch .env",
       "echo 'DATABASE_URL=postgresql://calendraft_admin:calendraft_admin@localhost:5432/calendraft?schema=public' > .env",
-      "echo 'JWT_SECRET=my-very-secret' >> .env",
+      "echo 'JWT_SECRET=${var.server_jwt_secret}' >> .env",
       "npm run db:migrate -y"
     ]
   }
