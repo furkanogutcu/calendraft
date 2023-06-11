@@ -17,6 +17,10 @@ async function bootstrap() {
     .addBearerAuth()
     .build();
 
+  app.enableCors({
+    origin: '*',
+  });
+
   const document = SwaggerModule.createDocument(app, config);
 
   SwaggerModule.setup('docs', app, document);
