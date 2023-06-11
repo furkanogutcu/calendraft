@@ -1,0 +1,33 @@
+<h1>Appointments</h1>
+<p>All appointments from secure (admin only) api end point:</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width:30%">User Name</th>
+            <th style="width:30%">Service Name</th>
+            <th style="width:30%">Start Time</th>
+            <th style="width:30%">End Time</th>
+            <th style="width:10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let appointment of appointments">
+            <td class="align-middle">{{appointment.userName}}</td>
+            <td class="align-middle">{{appointment.serviceName}}</td>
+            <td class="align-middle">{{appointment.startTime}}</td>
+            <td class="align-middle">{{appointment.endTime}}</td>
+            <td style="white-space: nowrap">
+                
+                <a routerLink="edit/{{appointment.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
+                <button (click)="deleteAppointment(appointment.id)" class="btn btn-sm btn-danger btn-delete-account" >
+                    <span>Delete</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!appointments">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,82 @@
+﻿
+<nav class="navbar navbar-expand navbar-dark bg-dark px-3 d-flex flex-row-reverse" >
+    <div class="navbar-nav">
+        <button routerLink="/account/login" routerLinkActive="active" class="btn btn-link nav-item nav-link">Login</button>
+    </div>
+</nav>
+<h1 class="my-5 d-flex justify-content-center display-4">Welcome To My Appointment App</h1>
+<mat-stepper class ="mx-4" linear #stepper>
+    <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Fill Your Personal Information</ng-template>
+      
+        <div style="display: flex; flex-direction: column;">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" placeholder="Last name, First name" required>
+          </mat-form-field>
+      
+          <mat-form-field>
+            <mat-label>Sur Name</mat-label>
+            <input matInput formControlName="surName" placeholder="Last name, First name" required>
+          </mat-form-field>
+      
+          <mat-form-field>
+            <mat-label>Phone</mat-label>
+            <input type="tel" matInput formControlName="phone" placeholder="Last name, First name" required>
+          </mat-form-field>
+        </div>
+      
+        <div>
+          <button mat-button matStepperNext (click)="submitUser()">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="selectFormControl" [editable]="isEditable">
+      
+        <ng-template matStepLabel>Select Your Service</ng-template>
+        <h4>mat select</h4>
+        <mat-form-field>
+          <mat-label>Select Service</mat-label>
+          <mat-select [formControl]="selectFormControl" required>
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let service of services" [value]="service.id">
+              {{service.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="selectFormControl.hasError('required')">Please select your service</mat-error>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext >Next</button>
+        </div>
+    </mat-step>
+    <mat-step [editable]="isEditable">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Select Date</ng-template>
+        <mat-form-field>
+          <mat-label>Date</mat-label>
+          <input matInput formControlName="date" type="date" placeholder="date">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Start Time</mat-label>
+          <input matInput formControlName="start" type="time" placeholder="start time">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>End Time</mat-label>
+          <input matInput formControlName="end" type="time" placeholder="end time">
+        </mat-form-field>
+        <ejs-schedule width='100%' height='550px' [selectedDate]="selectedDate"  [eventSettings]="eventSettings" readonly=true><e-views> <e-view option="Week" startHour="07:00" endHour="15:00"></e-view>
+            <e-view option="WorkWeek" startHour="10:00" endHour="18:00"></e-view> <e-view option="Month"  [showWeekend]="showWeekend"></e-view></e-views></ejs-schedule>
+        <div>
+            <button mat-button matStepperNext (click)="submitAppointment()">Next</button>
+        </div>
+      </form>
+      </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-stepper>

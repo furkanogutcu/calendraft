@@ -1,0 +1,29 @@
+<h1>Services</h1>
+<p>All services from secure (admin only) api end point:</p>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Create Service</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width:30%">Name</th>
+            <th style="width:30%">Price</th>
+            <th style="width:10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let service of services">
+            <td class="align-middle">{{service.name}}</td>
+            <td class="align-middle">{{service.price}}</td>
+            <td style="white-space: nowrap">
+                <a routerLink="edit/{{service.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
+                <button (click)="deleteAccount(service.id)" class="btn btn-sm btn-danger btn-delete-account" >
+                    <span>Delete</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!services">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
