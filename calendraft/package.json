@@ -7,7 +7,7 @@
     "lint:fix": "turbo run lint:fix",
     "build:check": "turbo run build:check",
     "commitlint": "commitlint --edit ${1}",
-    "prepare": "husky install",
+    "prepare": "cd .. && husky install calendraft/.husky",
     "pre-commit": "echo todo:npm run lint",
     "pre-push": "echo todo:npm run build:check"
   },
