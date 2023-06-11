@@ -1,0 +1,30 @@
+<h1>Users</h1>
+<p>All Users from secure (admin only) api end point:</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width:30%">Name</th>
+            <th style="width:30%">Surname</th>
+            <th style="width:30%">Phone</th>
+            <th style="width:10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let account of accounts">
+            <td class="align-middle">{{account.firstName}}</td>
+            <td class="align-middle">{{account.lastName}}</td>
+            <td class="align-middle">{{account.phoneNumber}}</td>
+            <td style="white-space: nowrap">
+                
+                <button (click)="deleteAccount(account.id)" class="btn btn-sm btn-danger btn-delete-account" >
+                    <span>Delete</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!accounts">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
