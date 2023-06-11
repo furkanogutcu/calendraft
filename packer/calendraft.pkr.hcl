@@ -33,7 +33,7 @@ source "vmware-iso" "debian" {
   ssh_port         = 22
   ssh_timeout      = "30m"
   vmx_data = {
-    memsize             = "1024"
+    memsize             = "4096"
     numvcpus            = "1"
     "virtualHW.version" = "14"
   }
@@ -79,13 +79,6 @@ build {
       "echo 'DATABASE_URL=postgresql://calendraft_admin:calendraft_admin@localhost:5432/calendraft?schema=public' > .env",
       "echo 'JWT_SECRET=${var.server_jwt_secret}' >> .env",
       "npm run db:migrate -y"
-    ]
-  }
-
-  provisioner "shell" {
-    inline = [
-      "cd calendraft/client",
-      "echo TODO",
     ]
   }
 }
