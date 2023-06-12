@@ -8,7 +8,13 @@ import { DropDownList } from '@syncfusion/ej2-dropdowns';
 import { DayService, WeekService, WorkWeekService, MonthService, AgendaService, PopupOpenEventArgs } from '@syncfusion/ej2-angular-schedule';
 import { FormBuilder,FormControl,Validators } from '@angular/forms';
 import { DatabaseService } from '@app/_services/database.service';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
+interface RandevuSaatleri {
+    baslangic: string;
+    bitis: string;
+    isDisable:boolean;
+  }
 @Component({ 
     templateUrl: 'home.component.html',
     providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService] })
@@ -23,6 +29,9 @@ export class HomeComponent implements OnInit {
     public services:any;
     public date: Date = new Date("12/11/2023 1:00 AM");
     public savedUser:any;
+    appointmentdate:any;
+    reservedDates:any;
+    reservedTimes:any;
 
     firstFormGroup = this._formBuilder.group({
         name: ['', Validators.required],
@@ -34,7 +43,7 @@ export class HomeComponent implements OnInit {
         start: ['', Validators.required],
         end: ['', Validators.required]
       });
-      selectFormControl = new FormControl('', Validators.required);
+      selectedService: any;
       isEditable = false;
 
     async ngOnInit(): Promise<void> {
@@ -44,11 +53,12 @@ export class HomeComponent implements OnInit {
         
     }
     async submitAppointment(){
-        const date = this.secondFormGroup.controls.date.value;
-        const start = this.secondFormGroup.controls.start.value;
-        const end = this.secondFormGroup.controls.end.value;
+        const date = this.appointmentdate;
+        const start = this.secilenSaat.split('-')[0];
+        const end = this.secilenSaat.split('-')[1];
 
         const startdatetimeString = `${date}T${start}:00.000Z`;
+        console.log(startdatetimeString);
         const startdatetime = new Date(startdatetimeString);
 
         // End datetime'i oluştur
@@ -60,7 +70,7 @@ export class HomeComponent implements OnInit {
         let user= { firstName:this.firstFormGroup.controls.name.value, lastName:this.firstFormGroup.controls.surName.value,phoneNumber:this.firstFormGroup.controls.phone.value }
         await this.databaseService.createUser(user).subscribe(async userdata=>{
             console.log(userdata);
-            let appointment = { userId:userdata.data.id,serviceId:this.selectFormControl.value,startTime:startdatetime,endTime:enddatetime}
+            let appointment = { userId:userdata.data.id,serviceId:parseInt(this.selectedService),startTime:startdatetimeString,endTime:enddatetimeString}
             console.log(appointment);
             await this.databaseService.createAppointment(appointment).subscribe(data=>{
                 console.log(data);
@@ -68,9 +78,32 @@ export class HomeComponent implements OnInit {
         })
         
     }
+
+    splitDateTime(dateTimeString: string,dateTimeString2: string) {
+        const dateTime = new Date(dateTimeString);
+        const dateTime2= new Date(dateTimeString2);
+      
+        const date = dateTime.toISOString().substring(0, 10);
+        const time = dateTime.toISOString().substring(11, 16);
+        const time2 = dateTime2.toISOString().substring(11, 16);
+      
+        return {
+          date: date,
+          start: time,
+          end: time2
+        };
+      }
     async submitUser(){
         
 
+    }
+    async onSelectedService(){
+       let serviceId= this.selectedService;
+       console.log(this.selectedService);
+        this.reservedDates= await this.databaseService.getServiceReservedDates(parseInt(serviceId)).toPromise();
+        console.log(this.reservedDates);
+        
+        
     }
 
     onPopupOpen(args: PopupOpenEventArgs): void {
@@ -85,7 +118,64 @@ export class HomeComponent implements OnInit {
             }
         }
     }
-    
+
+
+    randevuSaatleri: RandevuSaatleri[] = [];
+    secilenSaat: any;
+
+    formatDate(date: Date): string {
+        const year = date.getFullYear();
+        const month = this.formatNumberWithLeadingZero(date.getMonth() + 1);
+        const day = this.formatNumberWithLeadingZero(date.getDate());
+        return `${year}-${month}-${day}`;
+      }
+      
+      formatNumberWithLeadingZero(number: number): string {
+        return number < 10 ? '0' + number : '' + number;
+      }
+  
+    onDateSelected(event: MatDatepickerInputEvent<Date>) {
+        this.randevuSaatleri = [
+            { baslangic: '09:00', bitis: '10:00',isDisable:false },
+            { baslangic: '10:00', bitis: '11:00',isDisable:false },
+            { baslangic: '13:00', bitis: '14:00',isDisable:false },
+            { baslangic: '14:00', bitis: '15:00',isDisable:false },
+            { baslangic: '15:00', bitis: '16:00',isDisable:false},
+            { baslangic: '16:00', bitis: '17:00',isDisable:false},
+          ];
+        
+
+        console.log(this.appointmentdate);
+        const selectedDate = event.value;
+        if (selectedDate !== null) {
+            const formattedDate = this.formatDate(selectedDate);
+            console.log(formattedDate);
+            this.appointmentdate = formattedDate
+        }
+        else {
+            return;
+        }
+        this.reservedDates.data.forEach((reserveddate:any) => {
+           const{date,start,end} = this.splitDateTime(reserveddate.startTime,reserveddate.endTime)
+            if (date==this.appointmentdate)
+            {
+                this.randevuSaatleri.forEach((time:RandevuSaatleri)=>{
+                    if(time.baslangic==start){
+                        time.isDisable=true;
+                    }
+                })
+
+            }
+            
+        });
+    }
+  
+    onSaatSelected() {
+        
+        
+        console.log(this.secilenSaat);
+      // Burada seçilen saate göre yapılacak işlemi gerçekleştirebilirsiniz.
+    }
 
     
 }
