@@ -165,6 +165,11 @@ export class DatabaseService {
           headers: httpHeaders
         });
       }
+
+      getServiceReservedDates(serviceId: number): Observable<any> {
+        
+        return this.http.get(`${this.baseUrl}/services/${serviceId}/reserved-dates`);
+      }
     
       // POST /admin/services
       createService(serviceData: any): Observable<any> {
